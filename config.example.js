@@ -5,8 +5,15 @@ import { SERVICES } from './lib/posters/index.js'
 export default {
     services: {
         [SERVICES.MICROBLOG]: {
+            type: SERVICES.MICROBLOG,
             siteUrl: '', // https://mycoolname.micro.blog
             apiKey: '', // get an API from https://micro.blog/account/apps
+        },
+        [SERVICES.BLUESKY]: {
+            type: SERVICES.BLUESKY,
+            service: 'https://bsky.social', // Optional, defaults to bsky.social
+            identifier: 'user.bsky.social', // Your handle
+            password: 'app-password', // App password (Settings > App Passwords)
         }
     },
     sites: [

@@ -105,9 +105,15 @@ for (const site of config.sites)
         {
             console.log(`✅ Will create ${site.name} post for ${formatted.date}\n\n${formatted.content}`)
         } else {
-            for (const service of site.services)
+            for (const serviceKey of site.services)
             {
-                await posters[service](config.services[service], formatted, site)
+                const serviceConfig = config.services[serviceKey]
+                const serviceType = serviceConfig.type || serviceKey
+
+                if (posters[serviceType])
+                {
+                    await posters[serviceType](serviceConfig, formatted, site)
+                }
             }
         }
     }
