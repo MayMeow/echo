@@ -113,4 +113,4 @@ for (const site of config.sites)
     }
 }
 
-process.exit()
+// process.exit()
