@@ -14,6 +14,10 @@ export default {
             service: 'https://bsky.social', // Optional, defaults to bsky.social
             identifier: 'user.bsky.social', // Your handle
             password: 'app-password', // App password (Settings > App Passwords)
+        },
+        [SERVICES.MARKDOWN]: {
+            type: SERVICES.MARKDOWN,
+            folder: 'content', // Output folder (default: 'content'), creates content/{randomid}/index.md
         }
     },
     sites: [
@@ -22,7 +26,7 @@ export default {
             feed: "http://example.com/feed",
             categories: ["my category"],
             transform: presets.default,
-            services: [SERVICES.MICROBLOG]
+            services: [SERVICES.MICROBLOG, SERVICES.MARKDOWN]
         }
     ]
 }
