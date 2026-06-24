@@ -1,6 +1,7 @@
 import fs from 'fs'
 import RSSParser from 'rss-parser'
 import posters from './lib/posters/index.js'
+import { trackSyndication } from './lib/syndication.js'
 
 const echoPath = process.argv[1].replace('index.js', '')
 
@@ -112,7 +113,13 @@ for (const site of config.sites)
 
                 if (posters[serviceType])
                 {
-                    await posters[serviceType](serviceConfig, formatted, site)
+                    const result = await posters[serviceType](serviceConfig, formatted, site)
+                    console.log(formatted)
+                    if (site.trackSyndication && result?.url) {
+                        const itemId = site.transform.getId(item)
+                        const sourceKey = formatted.url || item.link || item.guid || item.id || (itemId ? `${site.feed}#${itemId}` : undefined)
+                        if (sourceKey) await trackSyndication(echoPath, site.name, sourceKey, result.url, serviceType)
+                    }
                 }
             }
         }
